@@ -9,6 +9,7 @@
 class UCameraComponent;
 class USpringArmComponent;
 class USInteractionComponent;
+class UAnimMontage;
 
 UCLASS()
 class COURSECPP_API ASCharacter : public ACharacter
@@ -17,8 +18,15 @@ class COURSECPP_API ASCharacter : public ACharacter
 
 protected:
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, Category = "Attack")
 	TSubclassOf<AActor> ProjectileClass;
+
+	UPROPERTY(EditAnywhere, Category = "Attack")
+	UAnimMontage* AttackAnim;
+
+	FTimerHandle TimerHandle_PrimaryAttack;
+
+	
 
 public:
 	// Sets default values for this character's properties
@@ -42,7 +50,7 @@ protected:
 
 	void PrimaryAttack();
 	void PrimaryInteract();
-	
+	void PrimaryAttack_TimeElapsed();
 
 public:	
 	// Called every frame
