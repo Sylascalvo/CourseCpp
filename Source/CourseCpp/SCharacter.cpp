@@ -7,7 +7,7 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "DrawDebugHelpers.h"
 #include "SInteractionComponent.h"
-
+#include "SMagicProjectile.h"
 
 // Sets default values
 ASCharacter::ASCharacter()
@@ -71,7 +71,7 @@ void ASCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 	PlayerInputComponent ->BindAxis("MoveForward", this, &ASCharacter::MoveForward);
 	PlayerInputComponent ->BindAxis("MoveRight", this, &ASCharacter::MoveRight);
 	PlayerInputComponent ->BindAction("Jump", IE_Pressed, this, &ASCharacter::Jump);
-	PlayerInputComponent ->BindAction("Jump", IE_Released, this, &ASCharacter::StopJumping);
+	
 
 
 	PlayerInputComponent ->BindAxis("Turn", this, &APawn::AddControllerYawInput);
@@ -106,15 +106,39 @@ void ASCharacter::MoveRight(float Value)
 	
 	AddMovementInput(RightVector, Value);
 }
+void ASCharacter::PerformLineTrace()
+{
+	APlayerController* PlayerController = Cast<APlayerController>(GetController());
+	if (!PlayerController) return;
+
+	FVector ViewLocation;
+	FRotator ViewRotation;
+	PlayerController->GetPlayerViewPoint(ViewLocation, ViewRotation);
+
+	FVector End = ViewLocation + (ViewRotation.Vector() * 5000.0f);
+
+	FHitResult Hit;
+	FCollisionQueryParams Params;
+	Params.AddIgnoredActor(this);
+
+	if (GetWorld()->LineTraceSingleByChannel(Hit, ViewLocation, End, ECC_Visibility, Params))
+	{
+		HitLocation = Hit.ImpactPoint;
+		
+	}
+	else
+	{
+		HitLocation = End;
+	
+	}
+}
 
 void ASCharacter::PrimaryAttack()
 {
-
+	PerformLineTrace();
 	PlayAnimMontage(AttackAnim);
 
 	GetWorldTimerManager().SetTimer(TimerHandle_PrimaryAttack, this, &ASCharacter::PrimaryAttack_TimeElapsed, 0.2);
-
-	
 	
 
 }
@@ -127,8 +151,13 @@ void ASCharacter::PrimaryAttack_TimeElapsed()
 
 	FActorSpawnParameters SpawnParams;
 	SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+	SpawnParams.Instigator = this;
 
-	GetWorld()->SpawnActor<AActor>(ProjectileClass, SpawnTM, SpawnParams);
+	ASMagicProjectile* Projectile = GetWorld()->SpawnActor<ASMagicProjectile>(ProjectileClass, SpawnTM, SpawnParams);
+	if (Projectile)
+	{
+		Projectile->InitializeProjectile(HitLocation);
+	}
 }
 
 void ASCharacter::PrimaryInteract()
@@ -139,4 +168,6 @@ void ASCharacter::PrimaryInteract()
 	}
 	
 }
+
+
 

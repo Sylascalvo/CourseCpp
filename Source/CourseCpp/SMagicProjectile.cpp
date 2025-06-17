@@ -22,12 +22,21 @@ ASMagicProjectile::ASMagicProjectile()
 	EffectComp->SetupAttachment(SphereComp);
 
 	MovementComp = CreateDefaultSubobject<UProjectileMovementComponent>("MovementComp");
-	MovementComp->InitialSpeed = 1000.0f;
+	MovementComp->InitialSpeed = 5000.0f;
 	MovementComp->bRotationFollowsVelocity = true;
 	MovementComp->bInitialVelocityInLocalSpace = true;
 
 }
+void ASMagicProjectile::InitializeProjectile(FVector InTargetLocation)
+{
+	TargetLocation = InTargetLocation;
 
+	if (MovementComp)
+	{
+		FVector Direction = (TargetLocation - GetActorLocation()).GetSafeNormal();
+		MovementComp->Velocity = Direction * MovementComp->InitialSpeed;
+	}
+}
 // Called when the game starts or when spawned
 void ASMagicProjectile::BeginPlay()
 {
@@ -39,6 +48,8 @@ void ASMagicProjectile::BeginPlay()
 void ASMagicProjectile::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+
+	
 
 }
 

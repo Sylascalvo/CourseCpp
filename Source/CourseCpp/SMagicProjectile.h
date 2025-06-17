@@ -18,18 +18,20 @@ class COURSECPP_API ASMagicProjectile : public AActor
 public:	
 	// Sets default values for this actor's properties
 	ASMagicProjectile();
+	void InitializeProjectile(FVector InTargetLocation);
 
 protected:
 
-	UPROPERTY(VisibleAnywhere)
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	USphereComponent* SphereComp;
 
-	UPROPERTY(VisibleAnywhere)
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	UProjectileMovementComponent* MovementComp;
 
-	UPROPERTY(VisibleAnywhere)
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	UParticleSystemComponent* EffectComp;
 	
+	FVector TargetLocation;
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 

@@ -40,6 +40,9 @@ protected:
     UPROPERTY(EditDefaultsOnly, Category = "Camera");
 	UCameraComponent* CameraComp;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Trace")
+	FVector HitLocation;
+	
 	UPROPERTY(VisibleAnywhere)
 	USInteractionComponent* InteractionComp;
 	
@@ -51,6 +54,7 @@ protected:
 	void PrimaryAttack();
 	void PrimaryInteract();
 	void PrimaryAttack_TimeElapsed();
+	void PerformLineTrace();
 
 public:	
 	// Called every frame
