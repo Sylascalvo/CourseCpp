@@ -10,6 +10,7 @@ class UCameraComponent;
 class USpringArmComponent;
 class USInteractionComponent;
 class UAnimMontage;
+class USAttributeComponent;
 
 UCLASS()
 class COURSECPP_API ASCharacter : public ACharacter
@@ -25,6 +26,7 @@ protected:
 	UAnimMontage* AttackAnim;
 
 	FTimerHandle TimerHandle_PrimaryAttack;
+	
 
 	
 
@@ -45,6 +47,9 @@ protected:
 	
 	UPROPERTY(VisibleAnywhere)
 	USInteractionComponent* InteractionComp;
+
+	UPROPERTY(visibleAnywhere, BlueprintReadOnly, Category = "Components")
+	USAttributeComponent* AttributeComp;
 	
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
