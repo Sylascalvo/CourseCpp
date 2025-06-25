@@ -32,7 +32,7 @@ protected:
 	UAnimMontage* AttackAnim;
 
 	FTimerHandle TimerHandle_PrimaryAttack;
-	FTimerHandle TimerHandle_BlackholeAttack;
+	FTimerHandle TimerHandle_BlackHoleAttack;
 	FTimerHandle TimerHandle_Dash;
 
 	UPROPERTY(EditDefaultsOnly, Category = "Attack")
@@ -61,21 +61,17 @@ protected:
 	void MoveRight(float Value);
 	
 	void PrimaryAttack_TimeElapsed();
-
-	void BlackHoleAttack();
-
-	void BlackholeAttack_TimeElapsed();
-
-	void Dash();
-	
-
+	void BlackHoleAttack_TimeElapsed();
 	void Dash_TimeElapsed();
+	
 
 	// Re-use spawn logic between attacks
 	void SpawnProjectile(TSubclassOf<AActor> ClassToSpawn);
 
 	void PrimaryInteract();
 	void PrimaryAttack();
+	void Dash();
+	void BlackHoleAttack();
 
 public:	
 	

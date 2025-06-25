@@ -9,8 +9,6 @@
 
 
 
-
-
 ASDashProjectile::ASDashProjectile()
 {
 	TeleportDelay = 0.2f;

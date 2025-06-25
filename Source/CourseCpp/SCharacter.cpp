@@ -108,11 +108,11 @@ void ASCharacter::BlackHoleAttack()
 {
 	PlayAnimMontage(AttackAnim);
 
-	GetWorldTimerManager().SetTimer(TimerHandle_BlackholeAttack, this, &ASCharacter::BlackholeAttack_TimeElapsed, AttackAnimDelay);
+	GetWorldTimerManager().SetTimer(TimerHandle_BlackHoleAttack, this, &ASCharacter::BlackHoleAttack_TimeElapsed, AttackAnimDelay);
 }
 
 
-void ASCharacter::BlackholeAttack_TimeElapsed()
+void ASCharacter::BlackHoleAttack_TimeElapsed()
 {
 	SpawnProjectile(BlackHoleProjectileClass);
 }

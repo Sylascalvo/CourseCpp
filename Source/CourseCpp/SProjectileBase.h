@@ -11,7 +11,8 @@ class UProjectileMovementComponent;
 class UParticleSystemComponent;
 
 UCLASS(ABSTRACT) // 'ABSTRACT' marks this class as incomplete, keeping this out of certain dropdowns windows like SpawnActor in Unreal Editor
-class COURSECPP_API ASProjectileBase : public AActor{
+class COURSECPP_API ASProjectileBase : public AActor
+{
 	GENERATED_BODY()
 
 protected:

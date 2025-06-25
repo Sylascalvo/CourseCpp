@@ -24,6 +24,9 @@ protected:
 
 public:
 
+	UFUNCTION(BlueprintCallable)
+	bool IsAlive();
+	
 	UPROPERTY(BlueprintAssignable)
 	FOnHealthChanged OnHealthChanged;
 	UFUNCTION(BlueprintCallable, Category = "Attributes")
