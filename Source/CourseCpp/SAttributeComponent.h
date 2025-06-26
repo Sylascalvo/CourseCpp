@@ -22,10 +22,12 @@ protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly,Category = "Attributes")
 	float Health;
 
+	
+
 public:
 
 	UFUNCTION(BlueprintCallable)
-	bool IsAlive();
+	bool IsAlive() const;
 	
 	UPROPERTY(BlueprintAssignable)
 	FOnHealthChanged OnHealthChanged;
