@@ -28,7 +28,15 @@ void USBTService_CheckAttackRange::TickNode(UBehaviorTreeComponent& OwnerComp, u
 
 					bool bWithinRange =  DistanceTo < 2000.f;
 
-					BlackBoardComp->SetValueAsBool(AttackRangeKey.SelectedKeyName, bWithinRange);
+					bool bHasLos = false;
+
+					if (bWithinRange)
+					{
+						 bHasLos = MyController->LineOfSightTo(TargetActor);
+					}
+
+					
+					BlackBoardComp->SetValueAsBool(AttackRangeKey.SelectedKeyName, (bWithinRange && bHasLos));
 				}
 			}
 		}
